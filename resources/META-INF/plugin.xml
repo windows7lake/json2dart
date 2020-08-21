@@ -1,0 +1,38 @@
+<idea-plugin>
+    <id>com.lake.json2dart</id>
+    <name>Json2Dart Safe Convert</name>
+    <version>1.0</version>
+    <vendor email="liolin@abc.com" url="http://www.liolin.com">Lio Lin</vendor>
+
+    <description><![CDATA[
+      This is a project which clone from https://github.com/Azoft/json2dart-converter/blob/master/LICENSE
+      Plugin for dart data classes generating from a json for a flutter project.
+      It provides safe convert for any type.
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Plugin for dart data classes generating from a json for a flutter project.
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="Json2DartAction.ID" class="com.lake.json2dart.Json2DartAction" text="Json2DartAction"
+                description="Convert json to dart code">
+            <add-to-group group-id="NewGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt P"/>
+        </action>
+    </actions>
+
+</idea-plugin>
