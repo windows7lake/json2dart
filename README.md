@@ -1,6 +1,8 @@
 # json2dart
-Android Studio plugin use for prasing json to dart class with safe type convert.\n
-It will generate a dart file named "safe_convert.dart" to ensure dart object can get a default value.\n
+Android Studio plugin use for prasing json to dart class with safe type convert.
+
+It will generate a dart file named "safe_convert.dart" to ensure dart object can get a default value.
+
 When you need a `int` type, but the server give you a `String` type, it will auto convert `String` to `int` and make sure that it has a default value such as '0'.
 For Example:
 ```dart
