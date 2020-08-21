@@ -55,4 +55,4 @@ static int parseInt(Map<String, dynamic> data, String key,
 
 ![](https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif)
 
-![](https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif)Response
+![](https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif)

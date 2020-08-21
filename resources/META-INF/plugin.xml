@@ -2,12 +2,15 @@
     <id>com.lake.json2dart</id>
     <name>Json2Dart Safe Convert</name>
     <version>1.0</version>
-    <vendor email="liolin@abc.com" url="http://www.liolin.com">Lio Lin</vendor>
+    <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
 
     <description><![CDATA[
-      This is a project which clone from https://github.com/Azoft/json2dart-converter/blob/master/LICENSE
-      Plugin for dart data classes generating from a json for a flutter project.
-      It provides safe convert for any type.
+        Android Studio plugin use for prasing json to dart class with safe type convert.\n
+        It will generate a dart file named "safe_convert.dart" to ensure dart object can get a default value.\n
+        When you need a `int` type, but the server give you a `String` type, it will auto convert `String` to `int` and make sure that it has a default value such as '0'.
+
+        https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif
+        https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif
     ]]></description>
 
     <change-notes><![CDATA[
