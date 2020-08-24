@@ -1,16 +1,19 @@
 <idea-plugin>
     <id>com.lake.json2dart</id>
     <name>Json2Dart Safe Convert</name>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
 
     <description><![CDATA[
-        Android Studio plugin use for prasing json to dart class with safe type convert.\n
-        It will generate a dart file named "safe_convert.dart" to ensure dart object can get a default value.\n
-        When you need a `int` type, but the server give you a `String` type, it will auto convert `String` to `int` and make sure that it has a default value such as '0'.
+        <p>Flutter plugin use for parsing json to dart class with safe type convert. </p><br />
 
-        https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif
-        https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif
+        <p>It will generate a dart file named "safe_convert.dart" to ensure dart object can be converted to correct type, if failed, it will get a default value. </p><br />
+
+        <p>When you need a `int` type, but the server offer you a `String` type, it will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'. </p><br />
+
+        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif?raw=true" /><br />
+
+        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif?raw=true" /><br />
     ]]></description>
 
     <change-notes><![CDATA[
