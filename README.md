@@ -76,6 +76,4 @@ T asT<T>(Map<String, dynamic> json, String key, {T defaultValue}) {
 }
 ```
 
-![](https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif)
-
-![](https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif)
+![](https://github.com/windows7lake/json2dart/blob/master/example.gif)
