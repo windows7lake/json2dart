@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>com.lake.json2dart</id>
+    <name>Json2Dart Safe Convert</name>
+    <version>1.0.3</version>
+    <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
+
+    <description><![CDATA[
+        <p>Flutter plugin use for parsing json to dart class with safe type convert. </p><br />
+
+        <p>It will generate a dart file named "safe_convert.dart" to ensure dart object can be converted to correct type, if failed, it will get a default value. </p><br />
+
+        <p>When you need a `int` type, but the server offer you a `String` type, it will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'. </p><br />
+
+        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif?raw=true" /><br />
+
+        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif?raw=true" /><br />
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0"/>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <action id="Json2Dart.ID" class="com.lake.json2dart.view.MainAction" text="Json2Dart"
+                description="Convert json to dart code">
+            <add-to-group group-id="NewGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt A"/>
+        </action>
+    </actions>
+</idea-plugin>

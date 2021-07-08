@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.6.4'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.intellij'
+
+group 'com.lake.json2dart'
+version '1.0.3'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext.kotlin_version = '1.4.32'
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.fifesoft:rsyntaxtextarea:3.1.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    implementation 'com.kenai.nbpwr:org-jdesktop-swingx:1.6-201002261215'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2019.1.4'
+    updateSinceUntilBuild = false
+}
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+patchPluginXml {
+    changeNotes = """
+        Plugin for dart data classes generating from a json for a flutter project.
+    """
+}
+
+test {
+    useJUnitPlatform()
+}
