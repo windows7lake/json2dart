@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.lake.json2dart</id>
     <name>Json2Dart Safe Convert</name>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
 
     <description><![CDATA[
@@ -11,9 +11,7 @@
 
         <p>When you need a `int` type, but the server offer you a `String` type, it will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'. </p><br />
 
-        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/gif/setup1.gif?raw=true" /><br />
-
-        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/gif/setup2.gif?raw=true" /><br />
+        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/example.gif?raw=true" /><br />
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->

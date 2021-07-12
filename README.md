@@ -1,5 +1,5 @@
 # json2dart
-Android Studio plugin use for parsing json to dart class with safe type convert.
+Flutter plugin use for parsing json to dart class with safe type convert.
 
 It will generate a dart file named "safe_convert.dart" to ensure dart object can get a default value.
 
