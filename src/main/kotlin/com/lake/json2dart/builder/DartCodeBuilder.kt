@@ -14,18 +14,18 @@ data class DartCodeBuilder(
     override val name: String,
     override val properties: List<Property>,
     override val comments: String,
-    override val excludedProperties: List<String> = listOf(),
+    override val excludedProperties: List<String> = listOf()
 ) : BaseClassCodeBuilder(
     name,
     properties,
     comments,
-    excludedProperties,
+    excludedProperties
 ) {
     constructor(clazz: DataClass) : this(
         clazz.name,
         clazz.properties,
         clazz.comment,
-        clazz.excludedProperties,
+        clazz.excludedProperties
     )
 
     private val referencedClasses: List<DartClass>

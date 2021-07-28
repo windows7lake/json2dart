@@ -7,7 +7,7 @@ import java.io.IOException
 class ClassFileGenerator(
     private val destinyDirectory: File,
     private val fileName: String,
-    private val text: String,
+    private val text: String
 ) {
 
     @Throws(IOException::class)

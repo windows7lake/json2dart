@@ -29,7 +29,7 @@ class DisplayClassMaker(private val clazz: DartClass) {
                                     type = property.type,
                                     value = property.value,
                                     comment = property.comment,
-                                    typeObject = property.typeObject,
+                                    typeObject = property.typeObject
                                 )
                             )
                         }
@@ -70,5 +70,5 @@ data class DisplayClass(
     val type: String,
     val value: String = "",
     val comment: String = "",
-    val typeObject: DartClass,
+    val typeObject: DartClass
 )

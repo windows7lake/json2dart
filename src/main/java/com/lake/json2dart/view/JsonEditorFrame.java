@@ -2,6 +2,7 @@ package com.lake.json2dart.view;
 
 import com.google.gson.*;
 import com.lake.json2dart.config.ConfigManager;
+import com.lake.json2dart.extension.Log;
 import com.lake.json2dart.extension.MessageTip;
 import com.lake.json2dart.generator.DartClassMaker;
 import com.lake.json2dart.model.dart.DartClass;
@@ -93,9 +94,11 @@ public class JsonEditorFrame extends JFrame {
             dialog.setSize(800, 600);
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
-        } catch (Exception e) {
+        } catch (JsonSyntaxException e) {
             MessageTip.INSTANCE.show("Json Syntax Error");
             return;
+        } catch (Exception e) {
+            Log.INSTANCE.e(e);
         }
         dispose();
     }
@@ -112,10 +115,7 @@ public class JsonEditorFrame extends JFrame {
             JsonElement jsonElement = jsonParser.parse(jsonStr);
             editText.setText(gson.toJson(jsonElement));
         } catch (JsonSyntaxException e) {
-            MessageDialog dialog = new MessageDialog("Json Syntax Error");
-            dialog.setSize(200, 200);
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
+            MessageTip.INSTANCE.show("Json Syntax Error");
         }
     }
 

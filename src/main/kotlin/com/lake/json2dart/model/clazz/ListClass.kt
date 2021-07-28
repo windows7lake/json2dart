@@ -9,7 +9,7 @@ import com.lake.json2dart.model.dart.DartClass
 data class ListClass(
     override val name: String,
     val generic: DartClass,
-    override val referencedClasses: List<DartClass> = listOf(generic),
+    override val referencedClasses: List<DartClass> = listOf(generic)
 ) : DartClass {
 
     private val codeBuilder: ICodeBuilder by lazy { CodeBuilderFactory.get(TYPE_LIST, this) }

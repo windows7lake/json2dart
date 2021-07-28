@@ -10,7 +10,7 @@ data class DataClass(
     override val name: String,
     val properties: List<Property> = listOf(),
     val comment: String = "",
-    val excludedProperties: List<String> = listOf(),
+    val excludedProperties: List<String> = listOf()
 ) : DartClass {
     private val codeBuilder: ICodeBuilder by lazy { CodeBuilderFactory.get(TYPE_CLASS, this) }
 

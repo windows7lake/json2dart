@@ -13,7 +13,7 @@ data class Property(
     var value: String = "",
     var comment: String = "",
     var typeObject: DartClass,
-    var selected: Boolean = true,
+    var selected: Boolean = true
 ) : Selector, CellProvider {
 
     fun propertyCode(): String {

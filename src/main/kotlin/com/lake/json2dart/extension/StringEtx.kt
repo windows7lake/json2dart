@@ -5,8 +5,12 @@ fun String.toCamelCase(): String {
     return StringBuilder().run {
         val list = value.split("_")
         for (item in list) {
-            append(item.substring(0, 1).toUpperCase())
-            append(item.substring(1).toLowerCase())
+            if (this.isEmpty()) {
+                append(item)
+            } else {
+                append(item.substring(0, 1).toUpperCase())
+                append(item.substring(1).toLowerCase())
+            }
         }
         toString()
     }
