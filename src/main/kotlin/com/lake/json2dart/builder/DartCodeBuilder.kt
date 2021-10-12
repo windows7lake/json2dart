@@ -80,14 +80,19 @@ data class DartCodeBuilder(
         val footer = "});".addIndent()
         sb.append("\n").append(header)
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
-            val code = property.constructorCode().addIndent(2)
-            sb.append("\n").append(code)
+            var requiredAnnotation = ""
+            if (property.typeObject is DataClass || property.typeObject is ListClass) {
+                requiredAnnotation = if (ConfigManager.enableNullSafety) "required " else ""
+            }
+            val code = requiredAnnotation + property.constructorCode()
+            sb.append("\n").append(code.addIndent(2))
         }
         sb.append("\n").append(footer).append("\n")
     }
 
     private fun generateFromJson(sb: StringBuilder) {
-        val header = "factory $name.fromJson(Map<String, dynamic> json) => $name(".addIndent()
+        val nullSafety = if (ConfigManager.enableNullSafety) "?" else ""
+        val header = "factory $name.fromJson(Map<String, dynamic>$nullSafety json) => $name(".addIndent()
         val footer = ");".addIndent()
         sb.append("\n").append(header)
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
@@ -106,16 +111,39 @@ data class DartCodeBuilder(
         when (property.typeObject) {
             is DataClass -> {
                 sb.append(property.type).append(".fromJson(")
-                sb.append("asT<Map>(json, '${property.originName}')),")
+                sb.append(if (ConfigManager.useGeneric) "asT<Map<String, dynamic>>" else "asMap")
+                sb.append("(json, '${property.originName}')),")
             }
             is ListClass -> {
-                sb.append("asT<List>(json, '${property.originName}')?.map((e) => ")
-                generateFromJsonListConvert(sb, property)
-                sb.append(")?.toList(),")
+                sb.append(if (ConfigManager.useGeneric) "asT<List>" else "asList")
+                sb.append("(json, '${property.originName}').map((e) => ")
+                generateFromJsonListSafeConvert(sb, property)
+                sb.append(").toList(),")
             }
             else -> {
-                sb.append("asT<${property.type}>(json, '${property.originName}'),")
+                if (ConfigManager.useGeneric) {
+                    sb.append("asT<${property.type}>(json, '${property.originName}'),")
+                } else {
+                    when (property.typeObject) {
+                        DartClass.INT -> sb.append("asInt")
+                        DartClass.DOUBLE -> sb.append("asDouble")
+                        DartClass.STRING -> sb.append("asString")
+                        DartClass.BOOLEAN -> sb.append("asBool")
+                        else -> sb.append("asString")
+                    }
+                    sb.append("(json, '${property.originName}'),")
+                }
             }
+        }
+    }
+
+    private fun generateFromJsonListSafeConvert(sb: StringBuilder, property: Property) {
+        when (val typeObject = (property.typeObject as ListClass).generic) {
+            DartClass.INT -> sb.append("int.tryParse(e.toString()) ?? 0")
+            DartClass.DOUBLE -> sb.append("double.tryParse(e.toString()) ?? 0.0")
+            DartClass.STRING -> sb.append("e.toString()")
+            DartClass.BOOLEAN -> sb.append("bool.fromEnvironment(e.toString()) ?? false")
+            is DataClass -> sb.append("${typeObject.name}.fromJson(e)")
         }
     }
 
@@ -137,11 +165,8 @@ data class DartCodeBuilder(
 
     private fun generateFromJsonListConvert(sb: StringBuilder, property: Property) {
         when (val typeObject = (property.typeObject as ListClass).generic) {
-            DartClass.INT -> sb.append("int.tryParse(e.toString()) ?? 0")
-            DartClass.DOUBLE -> sb.append("double.tryParse(e.toString()) ?? 0.0")
-            DartClass.STRING -> sb.append("e.toString()")
-            DartClass.BOOLEAN -> sb.append("bool.fromEnvironment(e.toString()) ?? false")
             is DataClass -> sb.append("${typeObject.name}.fromJson(e)")
+            else -> sb.append("e")
         }
     }
 
@@ -152,8 +177,12 @@ data class DartCodeBuilder(
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
             val originName = "'${property.originName}': this.".addIndent(2)
             sb.append("\n").append(originName).append(property.name)
-            if (property.typeObject is DataClass) sb.append("?.toJson()")
-            if (property.typeObject is ListClass) sb.append("?.map((e) => e.toJson())")
+            if (property.typeObject is DataClass) sb.append(".toJson()")
+            if (property.typeObject is ListClass) {
+                val typeObject = (property.typeObject as ListClass).generic
+                val element = if (typeObject is DataClass) "e.toJson()" else "e"
+                sb.append(".map((e) => $element)")
+            }
             sb.append(",")
         }
         sb.append("\n").append(footer).append("\n")

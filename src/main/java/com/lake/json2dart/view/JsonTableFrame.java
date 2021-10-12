@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.lake.json2dart.model.data.ConvertDataKt.SafeCode;
+import static com.lake.json2dart.model.data.ConvertDataKt.SafeCodeGeneric;
 
 public class JsonTableFrame extends JFrame {
     private JPanel contentPane;
@@ -105,7 +106,15 @@ public class JsonTableFrame extends JFrame {
             File destinyFile = new File(file.getPath());
             new ClassFileGenerator(destinyFile, fileName + ".dart", code).generate();
             if (ConfigManager.INSTANCE.getGenerateSafeConvertFile()) {
-                new ClassFileGenerator(destinyFile,  "safe_convert.dart", SafeCode).generate();
+                String safeConvert = ConfigManager.INSTANCE.getUseGeneric() ? SafeCodeGeneric : SafeCode;
+                if (!ConfigManager.INSTANCE.getEnableNullSafety()) {
+                    safeConvert = safeConvert.replaceAll("Map<String, dynamic>\\?", "Map<String, dynamic>")
+                            .replaceAll("T\\?", "T")
+                            .replaceAll("defaultValue!", "defaultValue")
+                            .replaceAll("!json", "json")
+                            .replaceAll("List\\?", "List");
+                }
+                new ClassFileGenerator(destinyFile,  "safe_convert.dart", safeConvert).generate();
             }
         } catch (IOException e) {
             MessageTip.INSTANCE.show("Generate dart file failed!");
@@ -141,7 +150,13 @@ public class JsonTableFrame extends JFrame {
             if (property.getTypeObject() instanceof DataClass) {
                 createTreeTableNode(node, property.getTypeObject());
             } else if (property.getTypeObject() instanceof ListClass) {
-                createTreeTableNode(node, ((ListClass) property.getTypeObject()).getGeneric());
+                DartClass dartClass = ((ListClass) property.getTypeObject()).getGeneric();
+                if (dartClass instanceof DataClass) {
+                    createTreeTableNode(node, dartClass);
+                } else {
+                    // for example: List<String>/List<int> and so on.
+                    defaultMutableTreeTableNodeList.add(node);
+                }
             } else {
                 defaultMutableTreeTableNodeList.add(node);
             }

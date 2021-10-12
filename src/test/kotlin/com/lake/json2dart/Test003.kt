@@ -39,7 +39,7 @@ class Test003 {
         @BeforeAll
         @JvmStatic
         fun setUp() {
-            ProjectConfig.setupTestInitState();
+            ProjectConfig.setupTestInitState()
         }
     }
 

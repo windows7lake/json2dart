@@ -1,5 +1,6 @@
 package com.lake.json2dart.builder
 
+import com.lake.json2dart.model.clazz.DataClass
 import com.lake.json2dart.model.clazz.ListClass
 
 data class DartListCodeBuilder(
@@ -15,6 +16,7 @@ data class DartListCodeBuilder(
     }
 
     override fun getCode(): String {
+        if (dartClass !is DataClass) return ""
         return dartClass.getCode()
     }
 }

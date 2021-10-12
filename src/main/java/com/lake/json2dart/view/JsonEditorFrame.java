@@ -18,15 +18,17 @@ import java.io.IOException;
 public class JsonEditorFrame extends JFrame {
     private JPanel contentPane;
     private RSyntaxTextArea editText;
-    private JButton buttonOK;
-    private JButton buttonClose;
-    private JButton buttonFormat;
     private JTextField textFileName;
+    private JTextField textClassName;
     private JCheckBox checkBoxFinal;
     private JCheckBox checkBoxComment;
     private JCheckBox checkBoxSafe;
     private JCheckBox checkBoxGenerate;
-    private JTextField textClassName;
+    private JCheckBox checkBoxNullSafety;
+    private JCheckBox checkBoxGeneric;
+    private JButton buttonOK;
+    private JButton buttonClose;
+    private JButton buttonFormat;
 
     public JsonEditorFrame() {
         setContentPane(contentPane);
@@ -68,8 +70,7 @@ public class JsonEditorFrame extends JFrame {
         String jsonStr = editText.getText();
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonParser jsonParser = new JsonParser();
-            JsonElement jsonElement = jsonParser.parse(jsonStr);
+            JsonElement jsonElement = new JsonParser().parse(jsonStr);
             editText.setText(gson.toJson(jsonElement));
 
             if (jsonStr.isEmpty()) {
@@ -81,6 +82,8 @@ public class JsonEditorFrame extends JFrame {
             ConfigManager.INSTANCE.setCommentOff(!checkBoxComment.isSelected());
             ConfigManager.INSTANCE.setEnableSafeConvert(checkBoxSafe.isSelected());
             ConfigManager.INSTANCE.setGenerateSafeConvertFile(checkBoxGenerate.isSelected());
+            ConfigManager.INSTANCE.setEnableNullSafety(checkBoxNullSafety.isSelected());
+            ConfigManager.INSTANCE.setUseGeneric(checkBoxGeneric.isSelected());
 
             String fileName = textFileName.getText();
             String className = textClassName.getText();
@@ -111,8 +114,7 @@ public class JsonEditorFrame extends JFrame {
         try {
             String jsonStr = editText.getText();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonParser jsonParser = new JsonParser();
-            JsonElement jsonElement = jsonParser.parse(jsonStr);
+            JsonElement jsonElement = new JsonParser().parse(jsonStr);
             editText.setText(gson.toJson(jsonElement));
         } catch (JsonSyntaxException e) {
             MessageTip.INSTANCE.show("Json Syntax Error");

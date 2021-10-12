@@ -8,7 +8,7 @@ apply plugin: 'kotlin'
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.lake.json2dart'
-version '1.0.5'
+version '1.0.6'
 
 sourceCompatibility = 1.8
 
@@ -40,8 +40,8 @@ compileTestKotlin {
 }
 patchPluginXml {
     changeNotes = """
-        1.change SafeManager to as<T>. \n
-        2.add interface for edit property.
+        1.Add support for null-safety;
+        2.Users can choose whether to use generics for type-safe convert.
     """
 }
 

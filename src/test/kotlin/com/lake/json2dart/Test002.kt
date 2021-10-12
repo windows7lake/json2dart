@@ -27,7 +27,7 @@ class Test002 {
         @BeforeAll
         @JvmStatic
         fun setUp() {
-            ProjectConfig.setupTestInitState();
+            ProjectConfig.setupTestInitState()
         }
     }
 

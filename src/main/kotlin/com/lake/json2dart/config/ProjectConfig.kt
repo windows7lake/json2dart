@@ -14,6 +14,8 @@ object ProjectConfig {
     var enableCamelCaseSupport = true
     var enableSafeConvert = true
     var generateSafeConvertFile = true
+    var enableNullSafety = true
+    var useGeneric = false
     var indent: Int = 2
     var propertyTypeStrategy = PropertyTypeStrategy.NotNullable
     var defaultValueStrategy = DefaultValueStrategy.AvoidNull

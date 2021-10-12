@@ -64,4 +64,16 @@ object ConfigManager {
         set(value) {
             ProjectConfig.generateSafeConvertFile = value
         }
+
+    var enableNullSafety: Boolean
+        get() = ProjectConfig.enableNullSafety
+        set(value) {
+            ProjectConfig.enableNullSafety = value
+        }
+
+    var useGeneric: Boolean
+        get() = ProjectConfig.useGeneric
+        set(value) {
+            ProjectConfig.useGeneric = value
+        }
 }

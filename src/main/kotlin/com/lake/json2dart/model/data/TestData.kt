@@ -24,6 +24,9 @@ object TestDataConstant {
         "item1": "1111",
         "item2": 2222
     }
+  ],
+  "list_str": [
+    "111", "222", "333"
   ]
 }"""
 }

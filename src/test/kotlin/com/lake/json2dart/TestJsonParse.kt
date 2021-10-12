@@ -63,7 +63,7 @@ class TestJsonParse {
         @BeforeAll
         @JvmStatic
         fun setUp() {
-            ProjectConfig.setupTestInitState();
+            ProjectConfig.setupTestInitState()
         }
     }
 
