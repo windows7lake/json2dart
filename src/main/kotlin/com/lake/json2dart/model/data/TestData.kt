@@ -27,6 +27,8 @@ object TestDataConstant {
   ],
   "list_str": [
     "111", "222", "333"
+  ],
+   "list_empty": [
   ]
 }"""
 }

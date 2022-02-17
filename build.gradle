@@ -8,7 +8,7 @@ apply plugin: 'kotlin'
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.lake.json2dart'
-version '1.0.6'
+version '1.0.7'
 
 sourceCompatibility = 1.8
 
@@ -40,8 +40,10 @@ compileTestKotlin {
 }
 patchPluginXml {
     changeNotes = """
-        1.Add support for null-safety;
-        2.Users can choose whether to use generics for type-safe convert.
+        bug fixed:
+        1.list generic type to camel case
+        2.empty list parse failed
+        3.remove 'this.' in 'toJson' method
     """
 }
 

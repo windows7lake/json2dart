@@ -1,10 +1,7 @@
 package com.lake.json2dart.builder
 
 import com.lake.json2dart.config.ConfigManager
-import com.lake.json2dart.extension.addIndent
-import com.lake.json2dart.extension.addSymbol
-import com.lake.json2dart.extension.getCommentCode
-import com.lake.json2dart.extension.getIndent
+import com.lake.json2dart.extension.*
 import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.DataClass
 import com.lake.json2dart.model.clazz.ListClass
@@ -41,6 +38,15 @@ data class DartCodeBuilder(
                 }
         }
 
+    private val nameCamelCase: String
+        get() {
+            return StringBuilder().run {
+                append(name.substring(0, 1).toUpperCase())
+                append(name.substring(1))
+                toString()
+            }
+        }
+
     override fun getOnlyCurrentCode(): String {
         val newProperties = properties.map { it.copy(typeObject = DartClass.ANY) }
         return copy(properties = newProperties).getCode()
@@ -58,7 +64,7 @@ data class DartCodeBuilder(
     }
 
     private fun generateClassName(sb: StringBuilder) {
-        sb.append("class ").append(name).append(" {\n")
+        sb.append("class ").append(name.toCamelCase()).append(" {\n")
     }
 
     private fun generateClassProperties(sb: StringBuilder) {
@@ -76,7 +82,7 @@ data class DartCodeBuilder(
     }
 
     private fun generateClassConstructor(sb: StringBuilder) {
-        val header = name.addIndent().addSymbol("({")
+        val header = nameCamelCase.addIndent().addSymbol("({")
         val footer = "});".addIndent()
         sb.append("\n").append(header)
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
@@ -92,7 +98,7 @@ data class DartCodeBuilder(
 
     private fun generateFromJson(sb: StringBuilder) {
         val nullSafety = if (ConfigManager.enableNullSafety) "?" else ""
-        val header = "factory $name.fromJson(Map<String, dynamic>$nullSafety json) => $name(".addIndent()
+        val header = "factory $nameCamelCase.fromJson(Map<String, dynamic>$nullSafety json) => $nameCamelCase(".addIndent()
         val footer = ");".addIndent()
         sb.append("\n").append(header)
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
@@ -143,7 +149,8 @@ data class DartCodeBuilder(
             DartClass.DOUBLE -> sb.append("double.tryParse(e.toString()) ?? 0.0")
             DartClass.STRING -> sb.append("e.toString()")
             DartClass.BOOLEAN -> sb.append("bool.fromEnvironment(e.toString()) ?? false")
-            is DataClass -> sb.append("${typeObject.name}.fromJson(e)")
+            is DataClass -> sb.append("${typeObject.name.toCamelCase()}.fromJson(e)")
+            else -> sb.append("e.toString()")
         }
     }
 
@@ -175,7 +182,7 @@ data class DartCodeBuilder(
         val footer = "};".addIndent()
         sb.append("\n").append(header)
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
-            val originName = "'${property.originName}': this.".addIndent(2)
+            val originName = "'${property.originName}': ".addIndent(2)
             sb.append("\n").append(originName).append(property.name)
             if (property.typeObject is DataClass) sb.append(".toJson()")
             if (property.typeObject is ListClass) {
