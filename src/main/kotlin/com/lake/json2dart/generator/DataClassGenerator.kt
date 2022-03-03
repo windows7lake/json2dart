@@ -38,7 +38,7 @@ class DataClassGenerator(private val className: String, private val jsonObject: 
                 }
                 jsonValue.isJsonArray -> {
                     val arrayType = ListClassGenerator(jsonKey.toCamelCase(), jsonValue.toString()).generate()
-                    val arrayTypeName = "List<${arrayType.generic.name}>"
+                    val arrayTypeName = "List<${arrayType.generic.name.toCamelCase()}>"
                     val jsonValueArrayProperty =
                         Property(originName = jsonKey, value = "", type = arrayTypeName, typeObject = arrayType)
                     properties.add(jsonValueArrayProperty)

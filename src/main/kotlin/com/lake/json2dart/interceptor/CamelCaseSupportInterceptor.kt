@@ -21,6 +21,10 @@ class CamelCaseSupportInterceptor : IDartClassInterceptor<DartClass> {
                                 append(s.substring(1).toLowerCase())
                             }
                         }
+                        if (this.toString() == "Map" || this.toString() == "map" ||
+                            this.toString() == "List" || this.toString() == "list") {
+                            append("2")
+                        }
                         toString()
                     }
                     it.copy(name = newName)

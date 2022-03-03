@@ -172,7 +172,7 @@ data class DartCodeBuilder(
 
     private fun generateFromJsonListConvert(sb: StringBuilder, property: Property) {
         when (val typeObject = (property.typeObject as ListClass).generic) {
-            is DataClass -> sb.append("${typeObject.name}.fromJson(e)")
+            is DataClass -> sb.append("${typeObject.name.toCamelCase()}.fromJson(e)")
             else -> sb.append("e")
         }
     }

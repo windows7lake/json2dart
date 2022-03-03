@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.lake.json2dart.config.ConfigManager;
 import com.lake.json2dart.extension.Log;
 import com.lake.json2dart.extension.MessageTip;
+import com.lake.json2dart.generator.DartClassCodeMaker;
 import com.lake.json2dart.generator.DartClassMaker;
 import com.lake.json2dart.model.dart.DartClass;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -97,6 +98,11 @@ public class JsonEditorFrame extends JFrame {
             dialog.setSize(800, 600);
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
+
+            String code = new DartClassCodeMaker(dartClass).makeDartClassCode();
+            if (code.contains("class Map") || code.contains("class List")) {
+                MessageTip.INSTANCE.show("Map or List should not be class name");
+            }
         } catch (JsonSyntaxException e) {
             MessageTip.INSTANCE.show("Json Syntax Error");
             return;

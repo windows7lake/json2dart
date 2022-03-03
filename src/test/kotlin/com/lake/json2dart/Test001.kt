@@ -30,7 +30,11 @@ class Test001 {
         "item1": "1111",
         "item2": 2222
     }
-  ]
+  ],
+  "map": {
+        "map_item1": "1111",
+        "map_item1": 2222
+    }
 }"""
 
     companion object {
