@@ -104,6 +104,15 @@ public class JsonTableFrame extends JFrame {
 
         try {
             File destinyFile = new File(file.getPath());
+            if (destinyFile.isFile()) {
+                File parentFile = new File(destinyFile.getParent());
+                if (parentFile.isDirectory()) {
+                    destinyFile = parentFile;
+                }
+            }
+            if (!destinyFile.isDirectory()) {
+                MessageTip.INSTANCE.show("Please choose a directory to generate dart file.");
+            }
             new ClassFileGenerator(destinyFile, fileName + ".dart", code).generate();
             if (ConfigManager.INSTANCE.getGenerateSafeConvertFile()) {
                 String safeConvert = ConfigManager.INSTANCE.getUseGeneric() ? SafeCodeGeneric : SafeCode;
@@ -117,7 +126,7 @@ public class JsonTableFrame extends JFrame {
                 new ClassFileGenerator(destinyFile,  "safe_convert.dart", safeConvert).generate();
             }
         } catch (IOException e) {
-            MessageTip.INSTANCE.show("Generate dart file failed!");
+            MessageTip.INSTANCE.show("Generate dart file failed! \n stackTrack" + e);
         } finally {
             file.refresh(false, true);
         }

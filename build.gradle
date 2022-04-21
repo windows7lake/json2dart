@@ -8,7 +8,7 @@ apply plugin: 'kotlin'
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.lake.json2dart'
-version '1.0.9'
+version '1.1.0'
 
 sourceCompatibility = 1.8
 
@@ -41,7 +41,7 @@ compileTestKotlin {
 patchPluginXml {
     changeNotes = """
         bug fixed:
-        1.class name convert error
+        1.generate file error while choosing file as a directory.
     """
 }
 
