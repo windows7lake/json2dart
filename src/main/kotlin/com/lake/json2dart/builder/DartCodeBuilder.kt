@@ -188,7 +188,7 @@ data class DartCodeBuilder(
             if (property.typeObject is ListClass) {
                 val typeObject = (property.typeObject as ListClass).generic
                 val element = if (typeObject is DataClass) "e.toJson()" else "e"
-                sb.append(".map((e) => $element)")
+                sb.append(".map((e) => $element).toList()")
             }
             sb.append(",")
         }

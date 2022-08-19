@@ -5,7 +5,7 @@ It will generate a dart file named "safe_convert.dart" to ensure dart object can
 
 When you need a `int` type, but the server give you a `String` type, it will auto convert `String` to `int` and make sure that it has a default value such as '0'.
 
-For Example 1, use generic: 
+Example 1, use generic: 
 ```dart
 class Response {
   final int status;
@@ -93,7 +93,7 @@ T asT<T>(Map<String, dynamic>? json, String key, {T? defaultValue}) {
 }
 ```
 
-For Example 2, without generic: 
+Example 2, without generic: 
 
 ```dart
 class Response {

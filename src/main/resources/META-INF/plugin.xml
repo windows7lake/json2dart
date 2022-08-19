@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.lake.json2dart</id>
     <name>Json2Dart Safe Convert</name>
-    <version>1.0.5</version>
+    <version>1.1.1</version>
     <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
 
     <description><![CDATA[
