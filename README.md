@@ -1,10 +1,16 @@
 # json2dart
-Flutter plugin use for parsing json to dart class with safe type convert.
 
-It will generate a dart file named "safe_convert.dart" to ensure dart object can get a default value.
+## Description
 
-When you need a `int` type, but the server give you a `String` type, it will auto convert `String` to `int` and make sure that it has a default value such as '0'.
+It's a flutter plugin that use for parsing json to dart class with safe type convert. 
 
+### What it do
+
+It will generate a dart file named "safe_convert.dart" to ensure dart object can be converted to correct type, if failed, it will get a default value.
+
+For example, when you need a `int` type, but the server offer you a `String` type. It will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'.
+
+## Example
 Example 1, use generic: 
 ```dart
 class Response {
@@ -79,7 +85,7 @@ T asT<T>(Map<String, dynamic>? json, String key, {T? defaultValue}) {
   } else if (false is T) {
     if (defaultValue == null) defaultValue = false as T;
     String valueS = value.toString();
-    if (valueS == '1' || valueS == '1.0' || valueS.toLowerCase() == 'true')
+    if (valueS == '1' || valueS == '1.0' || valueS.lowercase() == 'true')
       return true as T;
     return defaultValue!;
   } else if ([] is T) {
@@ -145,8 +151,8 @@ bool asBool(Map<String, dynamic>? json, String key, {bool defaultValue = false})
   if (value is int) return value == 0 ? false : true;
   if (value is double) return value == 0 ? false : true;
   if (value is String) {
-    if (value == "1" || value.toLowerCase() == "true") return true;
-    if (value == "0" || value.toLowerCase() == "false") return false;
+    if (value == "1" || value.lowercase() == "true") return true;
+    if (value == "0" || value.lowercase() == "false") return false;
   }
   return defaultValue;
 }

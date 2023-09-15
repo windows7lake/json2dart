@@ -1,4 +1,3 @@
-package com.lake.json2dart
 
 object TestDataConstant {
 

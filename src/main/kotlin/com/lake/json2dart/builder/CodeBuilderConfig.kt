@@ -7,7 +7,7 @@ package com.lake.json2dart.builder
  */
 class CodeBuilderConfig private constructor() {
 
-    var configMap = mutableMapOf<String, Any>()
+    private var configMap = mutableMapOf<String, Any>()
 
     companion object {
         val instance: CodeBuilderConfig by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
@@ -19,16 +19,17 @@ class CodeBuilderConfig private constructor() {
         configMap[key] = value
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> getConfig(key: String, default: T): T {
         var result = default
-        if(configMap.containsKey(key)) {
+        if (configMap.containsKey(key)) {
             result = configMap[key] as T
         }
         return result
     }
 
     fun removeConfig(key: String) {
-        if(configMap.containsKey(key)) {
+        if (configMap.containsKey(key)) {
             configMap.remove(key)
         }
     }

@@ -41,7 +41,7 @@ data class DartCodeBuilder(
     private val nameCamelCase: String
         get() {
             return StringBuilder().run {
-                append(name.substring(0, 1).toUpperCase())
+                append(name.substring(0, 1).uppercase())
                 append(name.substring(1))
                 toString()
             }

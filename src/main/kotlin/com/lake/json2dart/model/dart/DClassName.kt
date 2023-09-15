@@ -36,7 +36,7 @@ object DClassName : DName(), IDClassName {
         val stringBuilder = StringBuilder()
         temp.split(nameSeparator.toRegex()).forEach {
             if (it.isNotBlank()) {
-                stringBuilder.append(it.substring(0, 1).toUpperCase().plus(it.substring(1)))
+                stringBuilder.append(it.substring(0, 1).uppercase().plus(it.substring(1)))
             }
         }
         return stringBuilder.toString()

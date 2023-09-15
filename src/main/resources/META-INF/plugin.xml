@@ -1,28 +1,33 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>com.lake.json2dart</id>
-    <name>Json2Dart Safe Convert</name>
-    <version>1.1.1</version>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Json2dart</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
 
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        <p>Flutter plugin use for parsing json to dart class with safe type convert. </p><br />
+    <p>It's a flutter plugin that use for parsing json to dart class with safe type convert. </p><br />
+    <p>It will generate a dart file named "safe_convert.dart" to ensure dart object can be converted to correct type, if failed, it will get a default value. </p><br />
+    <p>For example, when you need a `int` type, but the server offer you a `String` type. It will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'. </p><br />
+    <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/example.gif?raw=true" /><br />
+  ]]></description>
 
-        <p>It will generate a dart file named "safe_convert.dart" to ensure dart object can be converted to correct type, if failed, it will get a default value. </p><br />
-
-        <p>When you need a `int` type, but the server offer you a `String` type, it will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'. </p><br />
-
-        <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/example.gif?raw=true" /><br />
-    ]]></description>
-
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="173.0"/>
-
-    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
-         on how to target different products -->
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+
     </extensions>
 
     <actions>

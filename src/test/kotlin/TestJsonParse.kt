@@ -1,4 +1,3 @@
-package com.lake.json2dart
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement

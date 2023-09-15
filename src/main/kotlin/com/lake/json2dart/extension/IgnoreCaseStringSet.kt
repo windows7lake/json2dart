@@ -9,11 +9,11 @@ class IgnoreCaseStringSet(override val size: Int = 4) : MutableSet<String> {
     private val stringSet = mutableSetOf<String>()
 
     override fun add(element: String): Boolean {
-        return stringSet.add(element.toLowerCase())
+        return stringSet.add(element.lowercase())
     }
 
     override fun addAll(elements: Collection<String>): Boolean {
-        return stringSet.addAll(elements.map { it.toLowerCase() })
+        return stringSet.addAll(elements.map { it.lowercase() })
     }
 
     override fun clear() {
@@ -21,11 +21,11 @@ class IgnoreCaseStringSet(override val size: Int = 4) : MutableSet<String> {
     }
 
     override fun contains(element: String): Boolean {
-        return stringSet.contains(element.toLowerCase())
+        return stringSet.contains(element.lowercase())
     }
 
     override fun containsAll(elements: Collection<String>): Boolean {
-        return stringSet.containsAll(elements.map { it.toLowerCase() })
+        return stringSet.containsAll(elements.map { it.lowercase() })
     }
 
     override fun isEmpty(): Boolean {
@@ -37,15 +37,15 @@ class IgnoreCaseStringSet(override val size: Int = 4) : MutableSet<String> {
     }
 
     override fun remove(element: String): Boolean {
-        return stringSet.remove(element.toLowerCase())
+        return stringSet.remove(element.lowercase())
     }
 
     override fun removeAll(elements: Collection<String>): Boolean {
-        return stringSet.removeAll(elements.map { it.toLowerCase() })
+        return stringSet.removeAll(elements.map { it.lowercase() })
     }
 
     override fun retainAll(elements: Collection<String>): Boolean {
-        return stringSet.retainAll(elements.map { it.toLowerCase() })
+        return stringSet.retainAll(elements.map { it.lowercase() })
     }
 
 }

@@ -203,7 +203,7 @@ public class JsonTableFrame extends JFrame {
     public static void main(String[] args) {
         String rawJson = TestDataConstant.rawJson;
         DartClass dartClass = new DartClassMaker("Test", rawJson).makeDartClass();
-        JsonTableFrame dialog = new JsonTableFrame.Builder()
+        JsonTableFrame dialog = new Builder()
                 .setDartClass(dartClass)
                 .setFileName("Test")
                 .build();

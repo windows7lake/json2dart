@@ -48,7 +48,7 @@ T asT<T>(Map<String, dynamic>? json, String key, {T? defaultValue}) {
   } else if (false is T) {
     if (defaultValue == null) defaultValue = false as T;
     String valueS = value.toString();
-    if (valueS == '1' || valueS == '1.0' || valueS.toLowerCase() == 'true')
+    if (valueS == '1' || valueS == '1.0' || valueS.lowercase() == 'true')
       return true as T;
     return defaultValue!;
   } else if ([] is T) {
@@ -93,8 +93,8 @@ bool asBool(Map<String, dynamic>? json, String key, {bool defaultValue = false})
   if (value is int) return value == 0 ? false : true;
   if (value is double) return value == 0 ? false : true;
   if (value is String) {
-    if (value == "1" || value.toLowerCase() == "true") return true;
-    if (value == "0" || value.toLowerCase() == "false") return false;
+    if (value == "1" || value.lowercase() == "true") return true;
+    if (value == "0" || value.lowercase() == "false") return false;
   }
   return defaultValue;
 }

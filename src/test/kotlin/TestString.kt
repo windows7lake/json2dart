@@ -1,4 +1,3 @@
-package com.lake.json2dart
 
 import org.junit.Test
 
@@ -11,18 +10,18 @@ class TestString {
             if (list.size == 1) {
                 val item = list[0]
                 if (item.length > 1) {
-                    append(item.substring(0, 1).toUpperCase())
+                    append(item.substring(0, 1).uppercase())
                     append(item.substring(1))
                 } else {
-                    append(item.toUpperCase())
+                    append(item.uppercase())
                 }
             } else {
                 for (item in list) {
                     if (item.length < 2) {
-                        append(item.toUpperCase())
+                        append(item.uppercase())
                     } else {
-                        append(item.substring(0, 1).toUpperCase())
-                        append(item.substring(1).toLowerCase())
+                        append(item.substring(0, 1).uppercase())
+                        append(item.substring(1).lowercase())
                     }
                 }
             }

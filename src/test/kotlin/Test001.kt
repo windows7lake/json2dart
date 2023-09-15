@@ -1,14 +1,10 @@
-package com.lake.json2dart
-
 import com.lake.json2dart.config.ProjectConfig
 import com.lake.json2dart.generator.DartClassCodeMaker
 import com.lake.json2dart.generator.DartClassMaker
-import com.lake.json2dart.generator.DisplayClassMaker
-import com.lake.json2dart.model.clazz.DataClass
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class Test003 {
+class Test001 {
 
     private val rawJson = """{
   "id": 1441,
@@ -32,7 +28,11 @@ class Test003 {
         "item1": "1111",
         "item2": 2222
     }
-  ]
+  ],
+  "map": {
+        "map_item1": "1111",
+        "map_item1": 2222
+    }
 }"""
 
     companion object {
@@ -44,14 +44,9 @@ class Test003 {
     }
 
     @Test
-    fun test003() {
+    fun test001() {
         val dartClass = DartClassMaker("Test", rawJson).makeDartClass()
-        println((dartClass as DataClass).properties.map { "$it\n" })
-        val displayList = DisplayClassMaker(dartClass).makeDisplayClassList()
-//        println(displayList.map { "$it\n" })
         val result = DartClassCodeMaker(dartClass).makeDartClassCode()
-//        println(result)
-
-
+        println(result)
     }
 }
