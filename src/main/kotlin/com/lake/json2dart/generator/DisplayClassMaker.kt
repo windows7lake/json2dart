@@ -1,8 +1,8 @@
 package com.lake.json2dart.generator
 
-import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.DataClass
 import com.lake.json2dart.model.clazz.ListClass
+import com.lake.json2dart.model.dart.DartClass
 
 class DisplayClassMaker(private val clazz: DartClass) {
 

@@ -2,8 +2,8 @@ package com.lake.json2dart.generator
 
 import com.google.gson.*
 import com.lake.json2dart.extension.*
-import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.ListClass
+import com.lake.json2dart.model.dart.DartClass
 
 class ListClassGenerator(private val className: String, jsonArrayString: String) {
 
@@ -16,15 +16,18 @@ class ListClassGenerator(private val className: String, jsonArrayString: String)
                 Log.i("$tag jsonArray size is 0, return ListClass with generic type ANY")
                 return ListClass(name = className, generic = DartClass.ANY)
             }
+
             jsonArray.allItemAreNullElement() -> {
                 Log.i("$tag jsonArray allItemAreNullElement, return ListClass with generic type ${DartClass.ANY.name}")
                 return ListClass(name = className, generic = DartClass.ANY)
             }
+
             jsonArray.allElementAreSamePrimitiveType() -> {
                 val elementDartClass = jsonArray[0].asJsonPrimitive.toDartType()
                 Log.i("$tag jsonArray allElementAreSamePrimitiveType, return ListClass with generic type ${elementDartClass.name}")
                 return ListClass(name = className, generic = elementDartClass)
             }
+
             jsonArray.allItemAreObjectElement() -> {
                 val fatJsonObject = getFatJsonObject(jsonArray)
                 val itemObjClassName = "${className}Item"
@@ -32,6 +35,7 @@ class ListClassGenerator(private val className: String, jsonArrayString: String)
                 Log.i("$tag jsonArray allItemAreObjectElement, return ListClass with generic type ${dataClassFromJsonObj.name}")
                 return ListClass(className, dataClassFromJsonObj)
             }
+
             jsonArray.allItemAreArrayElement() -> {
                 val fatJsonArray = getFatJsonArray(jsonArray)
                 val itemArrayClassName = "${className}SubList"
@@ -40,6 +44,7 @@ class ListClassGenerator(private val className: String, jsonArrayString: String)
                 Log.i("$tag jsonArray allItemAreArrayElement, return ListClass with generic type ${listClassFromFatJsonArray.name}")
                 return ListClass(className, listClassFromFatJsonArray)
             }
+
             else -> {
                 Log.i("$tag jsonArray exception shouldn't come here, return ListClass with generic type ANY")
                 return ListClass(name = className, generic = DartClass.ANY)

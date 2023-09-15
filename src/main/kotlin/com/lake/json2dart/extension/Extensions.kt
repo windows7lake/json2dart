@@ -16,6 +16,7 @@ fun JsonPrimitive.toDartType(): DartClass {
             asString.contains(".") -> DartClass.DOUBLE
             else -> DartClass.INT
         }
+
         isString -> DartClass.STRING
         else -> DartClass.STRING
     }
@@ -65,18 +66,15 @@ fun theSamePrimitiveType(first: JsonPrimitive, second: JsonPrimitive): Boolean {
 }
 
 fun JsonArray.allElementAreSamePrimitiveType(): Boolean {
-    var allElementAreSamePrimitiveType = true
     forEach {
         if (it.isJsonPrimitive.not()) {
-            allElementAreSamePrimitiveType = false
-            return allElementAreSamePrimitiveType
+            return false
         }
         if (theSamePrimitiveType(this[0].asJsonPrimitive, it.asJsonPrimitive).not()) {
-            allElementAreSamePrimitiveType = false
-            return allElementAreSamePrimitiveType
+            return false
         }
     }
-    return allElementAreSamePrimitiveType
+    return true
 }
 
 /**
@@ -182,6 +180,7 @@ fun getOutType(rawType: String, value: Any?): String {
             val innerRawType = rawType.replace("?", "").replace(">", "?>")
             innerRawType.plus("?")
         }
+
         (PropertyTypeStrategy.AutoDeterMineNullableOrNot) -> {
             if (value == null) {
                 rawType.plus("?")
@@ -189,6 +188,7 @@ fun getOutType(rawType: String, value: Any?): String {
                 rawType
             }
         }
+
         else -> {
             rawType.replace("?", "")
         }

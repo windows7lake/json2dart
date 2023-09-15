@@ -3,8 +3,8 @@ package com.lake.json2dart.generator
 import com.lake.json2dart.config.ConfigManager
 import com.lake.json2dart.interceptor.IDartClassInterceptor
 import com.lake.json2dart.interceptor.InterceptorManager
-import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.ListClass
+import com.lake.json2dart.model.dart.DartClass
 
 class DartClassCodeMaker(private val dartClass: DartClass) {
 

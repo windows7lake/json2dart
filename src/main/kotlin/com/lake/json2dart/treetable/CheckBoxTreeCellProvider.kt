@@ -29,9 +29,11 @@ class CheckBoxTreeCellProvider(private val selectionModel: CheckBoxTreeSelection
                 selectionModel.isPathSelected(path, true) -> {
                     checkBox.setState(java.lang.Boolean.TRUE)
                 }
+
                 selectionModel.isPartiallySelected(path) -> {
                     checkBox.setState(null)
                 }
+
                 else -> {
                     checkBox.setState(java.lang.Boolean.FALSE)
                 }

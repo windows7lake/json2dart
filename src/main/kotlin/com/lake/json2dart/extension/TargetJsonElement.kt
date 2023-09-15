@@ -30,7 +30,8 @@ class TargetJsonElement : ITargetJsonElement {
                     throw IllegalStateException("Unbelievable！ should not throw out this exception")
                 }
             } else if (jsonArrayWithoutNullElement.onlyHasOneElementRecursive()
-                || jsonArrayWithoutNullElement.onlyHasOneSubArrayAndAllItemsAreObjectElementRecursive()) {
+                || jsonArrayWithoutNullElement.onlyHasOneSubArrayAndAllItemsAreObjectElementRecursive()
+            ) {
                 return getArrayChildElement(jsonArrayWithoutNullElement)
             } else if (allElementAreSamePrimitiveType(jsonArrayWithoutNullElement)) {
                 return jsonArrayWithoutNullElement[0]
@@ -58,21 +59,17 @@ class TargetJsonElement : ITargetJsonElement {
     }
 
     private fun allElementAreSamePrimitiveType(jsonArray: JsonArray): Boolean {
-        var allElementAreSamePrimitiveType = true
-
-            jsonArray.forEach {
-                if (it.isJsonPrimitive.not()) {
-                    allElementAreSamePrimitiveType = false
-                    return allElementAreSamePrimitiveType
-                }
-                if (theSamePrimitiveType(jsonArray[0].asJsonPrimitive, it.asJsonPrimitive).not()) {
-                    allElementAreSamePrimitiveType = false
-                    return allElementAreSamePrimitiveType
-                }
+        jsonArray.forEach {
+            if (it.isJsonPrimitive.not()) {
+                return false
             }
+            if (theSamePrimitiveType(jsonArray[0].asJsonPrimitive, it.asJsonPrimitive).not()) {
+                return false
+            }
+        }
 
 
-        return allElementAreSamePrimitiveType
+        return true
     }
 
     private fun theSamePrimitiveType(first: JsonPrimitive, second: JsonPrimitive): Boolean {

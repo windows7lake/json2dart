@@ -2,7 +2,7 @@ package com.lake.json2dart.model.clazz
 
 import com.lake.json2dart.builder.CodeBuilderFactory
 import com.lake.json2dart.builder.ICodeBuilder
-import com.lake.json2dart.builder.TYPE_CLASS
+import com.lake.json2dart.builder.TypeClass
 import com.lake.json2dart.interceptor.IDartClassInterceptor
 import com.lake.json2dart.model.dart.DartClass
 
@@ -12,7 +12,7 @@ data class DataClass(
     val comment: String = "",
     val excludedProperties: List<String> = listOf()
 ) : DartClass {
-    private val codeBuilder: ICodeBuilder by lazy { CodeBuilderFactory.get(TYPE_CLASS, this) }
+    private val codeBuilder: ICodeBuilder by lazy { CodeBuilderFactory.get(TypeClass, this) }
 
     override val referencedClasses: List<DartClass>
         get() {

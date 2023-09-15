@@ -108,12 +108,14 @@ class TreeTableCheckBox(text: String, icon: Icon?, selected: Boolean) : JCheckBo
                         isSelected = false
                         selector?.changeState(false)
                     }
+
                     state === java.lang.Boolean.TRUE -> {
                         other.isArmed = false
                         isPressed = false
                         isSelected = true
                         selector?.changeState(true)
                     }
+
                     else -> {
                         other.isArmed = true
                         isPressed = true
@@ -132,9 +134,11 @@ class TreeTableCheckBox(text: String, icon: Icon?, selected: Boolean) : JCheckBo
                 current === java.lang.Boolean.FALSE -> {
                     state = java.lang.Boolean.TRUE
                 }
+
                 current === java.lang.Boolean.TRUE -> {
                     state = null
                 }
+
                 current == null -> {
                     state = java.lang.Boolean.FALSE
                 }

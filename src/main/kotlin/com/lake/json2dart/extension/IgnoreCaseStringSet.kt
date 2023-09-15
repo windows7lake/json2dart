@@ -41,11 +41,11 @@ class IgnoreCaseStringSet(override val size: Int = 4) : MutableSet<String> {
     }
 
     override fun removeAll(elements: Collection<String>): Boolean {
-        return stringSet.removeAll(elements.map { it.lowercase() })
+        return stringSet.removeAll(elements.map { it.lowercase() }.toSet())
     }
 
     override fun retainAll(elements: Collection<String>): Boolean {
-        return stringSet.retainAll(elements.map { it.lowercase() })
+        return stringSet.retainAll(elements.map { it.lowercase() }.toSet())
     }
 
 }

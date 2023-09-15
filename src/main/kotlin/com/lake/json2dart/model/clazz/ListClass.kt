@@ -2,7 +2,7 @@ package com.lake.json2dart.model.clazz
 
 import com.lake.json2dart.builder.CodeBuilderFactory
 import com.lake.json2dart.builder.ICodeBuilder
-import com.lake.json2dart.builder.TYPE_LIST
+import com.lake.json2dart.builder.TypeList
 import com.lake.json2dart.interceptor.IDartClassInterceptor
 import com.lake.json2dart.model.dart.DartClass
 
@@ -12,7 +12,7 @@ data class ListClass(
     override val referencedClasses: List<DartClass> = listOf(generic)
 ) : DartClass {
 
-    private val codeBuilder: ICodeBuilder by lazy { CodeBuilderFactory.get(TYPE_LIST, this) }
+    private val codeBuilder: ICodeBuilder by lazy { CodeBuilderFactory.get(TypeList, this) }
 
     override fun getOnlyCurrentCode(): String {
         return codeBuilder.getOnlyCurrentCode()

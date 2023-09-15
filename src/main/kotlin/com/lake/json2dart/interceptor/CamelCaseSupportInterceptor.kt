@@ -1,7 +1,7 @@
 package com.lake.json2dart.interceptor
 
-import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.DataClass
+import com.lake.json2dart.model.dart.DartClass
 
 class CamelCaseSupportInterceptor : IDartClassInterceptor<DartClass> {
 
@@ -22,7 +22,8 @@ class CamelCaseSupportInterceptor : IDartClassInterceptor<DartClass> {
                             }
                         }
                         if (this.toString() == "Map" || this.toString() == "map" ||
-                            this.toString() == "List" || this.toString() == "list") {
+                            this.toString() == "List" || this.toString() == "list"
+                        ) {
                             append("2")
                         }
                         toString()

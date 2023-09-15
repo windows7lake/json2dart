@@ -9,7 +9,11 @@ class DartClassMaker(private val rootClassName: String, private val json: String
 
     fun makeDartClass(): DartClass {
         return when {
-            json.isJSONObject() -> DataClassGenerator(rootClassName, Gson().fromJson(json, JsonObject::class.java)).generate()
+            json.isJSONObject() -> DataClassGenerator(
+                rootClassName,
+                Gson().fromJson(json, JsonObject::class.java)
+            ).generate()
+
             json.isJSONArray() -> ListClassGenerator(rootClassName, json).generate()
             else -> throw IllegalStateException("Can't generate Dart Class from a no JSON Object/Array")
         }

@@ -52,12 +52,15 @@ data class Property(
             1 -> {
                 this.type = value
             }
+
             2 -> {
                 this.name = value
             }
+
             3 -> {
                 this.value = value
             }
+
             4 -> {
                 this.comment = value
             }

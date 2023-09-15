@@ -8,14 +8,14 @@ import com.lake.json2dart.model.clazz.ListClass
  * support element type
  */
 sealed class ElementType
-object TYPE_CLASS : ElementType()
-object TYPE_LIST  : ElementType()
+data object TypeClass : ElementType()
+data object TypeList  : ElementType()
 
 /**
  * support language
  */
 sealed class Language
-object LANG_DART : Language()
+data object LanguageDart : Language()
 
 /**
  * Created by Nstd on 2020/6/30 17:50.
@@ -28,22 +28,22 @@ object CodeBuilderFactory {
     private const val CONF_LANGUAGE = "code.builder.language"
 
     fun <T : DartClass> get(type: ElementType, data: T): ICodeBuilder {
-        val lang: Language = CodeBuilderConfig.instance.getConfig(CONF_LANGUAGE, LANG_DART)
+        val lang: Language = CodeBuilderConfig.instance.getConfig(CONF_LANGUAGE, LanguageDart)
         return when(type) {
-            TYPE_CLASS -> getClassCodeBuilder(lang, data as DataClass)
-            TYPE_LIST  -> getListCodeBuilder(lang, data as ListClass)
+            TypeClass -> getClassCodeBuilder(lang, data as DataClass)
+            TypeList  -> getListCodeBuilder(lang, data as ListClass)
         }
     }
 
     private fun getClassCodeBuilder(lang: Language, data: DataClass): ICodeBuilder {
         return when(lang) {
-            LANG_DART -> DartCodeBuilder(data)
+            LanguageDart -> DartCodeBuilder(data)
         }
     }
 
     private fun getListCodeBuilder(lang: Language, data: ListClass): ICodeBuilder {
         return when(lang) {
-            LANG_DART -> DartListCodeBuilder(data)
+            LanguageDart -> DartListCodeBuilder(data)
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.lake.json2dart.interceptor
 
-import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.DataClass
+import com.lake.json2dart.model.dart.DartClass
 
 class OrderPropertyByAlphabeticalInterceptor : IDartClassInterceptor<DartClass> {
 

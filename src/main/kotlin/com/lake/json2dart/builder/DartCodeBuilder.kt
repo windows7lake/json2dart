@@ -2,10 +2,10 @@ package com.lake.json2dart.builder
 
 import com.lake.json2dart.config.ConfigManager
 import com.lake.json2dart.extension.*
-import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.model.clazz.DataClass
 import com.lake.json2dart.model.clazz.ListClass
 import com.lake.json2dart.model.clazz.Property
+import com.lake.json2dart.model.dart.DartClass
 
 data class DartCodeBuilder(
     override val name: String,
@@ -98,7 +98,8 @@ data class DartCodeBuilder(
 
     private fun generateFromJson(sb: StringBuilder) {
         val nullSafety = if (ConfigManager.enableNullSafety) "?" else ""
-        val header = "factory $nameCamelCase.fromJson(Map<String, dynamic>$nullSafety json) => $nameCamelCase(".addIndent()
+        val header =
+            "factory $nameCamelCase.fromJson(Map<String, dynamic>$nullSafety json) => $nameCamelCase(".addIndent()
         val footer = ");".addIndent()
         sb.append("\n").append(header)
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
@@ -120,12 +121,14 @@ data class DartCodeBuilder(
                 sb.append(if (ConfigManager.useGeneric) "asT<Map<String, dynamic>>" else "asMap")
                 sb.append("(json, '${property.originName}')),")
             }
+
             is ListClass -> {
                 sb.append(if (ConfigManager.useGeneric) "asT<List>" else "asList")
                 sb.append("(json, '${property.originName}').map((e) => ")
                 generateFromJsonListSafeConvert(sb, property)
                 sb.append(").toList(),")
             }
+
             else -> {
                 if (ConfigManager.useGeneric) {
                     sb.append("asT<${property.type}>(json, '${property.originName}'),")
@@ -159,11 +162,13 @@ data class DartCodeBuilder(
             is DataClass -> {
                 sb.append(property.type).append(".fromJson(json['${property.originName}']),")
             }
+
             is ListClass -> {
                 sb.append("json['${property.originName}']?.map((e) => ")
                 generateFromJsonListConvert(sb, property)
                 sb.append(")?.toList(),")
             }
+
             else -> {
                 sb.append("json['${property.originName}'],")
             }

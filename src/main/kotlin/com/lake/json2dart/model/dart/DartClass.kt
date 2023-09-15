@@ -56,7 +56,7 @@ interface DartClass {
             thisNoneConflictName = getNoneConflictClassName(existClassNames, name)
         }
         existClassNames.add(thisNoneConflictName)
-        val classReplaceRule = referencedClasses.associateWith { it.resolveNameConflicts(existClassNames) }
+//        val classReplaceRule = referencedClasses.associateWith { it.resolveNameConflicts(existClassNames) }
         return rename(thisNoneConflictName)//.replaceReferencedClasses(classReplaceRule)
     }
 
