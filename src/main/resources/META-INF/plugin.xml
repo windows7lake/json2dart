@@ -5,7 +5,7 @@
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Json2dart</name>
+    <name>Json2Dart Safe Convert</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="windows7lake@gmail.com" url="https://github.com/windows7lake">Lio Lin</vendor>
@@ -14,10 +14,258 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    <p>It's a flutter plugin that use for parsing json to dart class with safe type convert. </p><br />
-    <p>It will generate a dart file named "safe_convert.dart" to ensure dart object can be converted to correct type, if failed, it will get a default value. </p><br />
-    <p>For example, when you need a `int` type, but the server offer you a `String` type. It will auto convert `String` to `int` and make sure that, when convert failed, it has a default value such as '0'. </p><br />
-    <img width="680" src="https://github.com/windows7lake/json2dart/blob/master/example.gif?raw=true" /><br />
+<h1 id="json2dart">json2dart</h1>
+<h2 id="description">Description</h2>
+<p>It&#39;s a flutter plugin that use for parsing json to dart class with safe type convert. </p>
+<h3 id="what-it-do">What it do</h3>
+<p>It will generate a dart file named &quot;safe_convert.dart&quot; to ensure dart object can be converted to correct type, if failed, it will get a default value.</p>
+<p>For example, when you need a <code>int</code> type, but the server offer you a <code>String</code> type. It will auto convert <code>String</code> to <code>int</code> and make sure that, when convert failed, it has a default value such as &#39;0&#39;.</p>
+<h2 id="safe_convert-dart">safe_convert.dart</h2>
+<pre style="background-color:#f6f6f6;padding:16px"><code class="lang-dart"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">toInt</span>(<span class="hljs-params"><span class="hljs-keyword">value</span>, {<span class="hljs-keyword">int</span> defaultValue = <span class="hljs-number">0</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">int</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">double</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>.toInt();
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> String) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">int</span>.tryParse(<span class="hljs-keyword">value</span>) ??
+        <span class="hljs-keyword">double</span>.tryParse(<span class="hljs-keyword">value</span>)?.toInt() ??
+        defaultValue;
+  }
+  <span class="hljs-keyword">return</span> defaultValue;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">toDouble</span>(<span class="hljs-params"><span class="hljs-keyword">value</span>, {<span class="hljs-keyword">double</span> defaultValue = <span class="hljs-number">0.0</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">double</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">int</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>.toDouble();
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> ? <span class="hljs-number">1.0</span> : <span class="hljs-number">0.0</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> String) <span class="hljs-keyword">return</span> <span class="hljs-keyword">double</span>.tryParse(<span class="hljs-keyword">value</span>) ?? defaultValue;
+  <span class="hljs-keyword">return</span> defaultValue;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">toBool</span>(<span class="hljs-params"><span class="hljs-keyword">value</span>, {<span class="hljs-keyword">bool</span> defaultValue = <span class="hljs-literal">false</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">int</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> == <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">double</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> == <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> String) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-string">"1"</span> || <span class="hljs-keyword">value</span>.toLowerCase() == <span class="hljs-string">"true"</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-string">"0"</span> || <span class="hljs-keyword">value</span>.toLowerCase() == <span class="hljs-string">"false"</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+  <span class="hljs-keyword">return</span> defaultValue;
+}
+
+<span class="hljs-function">String <span class="hljs-title">toString</span>(<span class="hljs-params"><span class="hljs-keyword">value</span>, {String defaultValue = <span class="hljs-string">""</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> String) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">int</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>.toString();
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">double</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>.toString();
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> ? <span class="hljs-string">"true"</span> : <span class="hljs-string">"false"</span>;
+  <span class="hljs-keyword">return</span> defaultValue;
+}
+
+<span class="hljs-function">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt; <span class="hljs-title">toMap</span>(<span class="hljs-params"><span class="hljs-keyword">value</span>, {Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? defaultValue}</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue ?? &lt;String, <span class="hljs-keyword">dynamic</span>&gt;{};
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+  <span class="hljs-keyword">return</span> defaultValue ?? &lt;String, <span class="hljs-keyword">dynamic</span>&gt;{};
+}
+
+<span class="hljs-function">List <span class="hljs-title">toList</span>(<span class="hljs-params"><span class="hljs-keyword">value</span>, {List? defaultValue}</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue ?? [];
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> List) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+  <span class="hljs-keyword">return</span> defaultValue ?? [];
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">asInt</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key, {<span class="hljs-keyword">int</span> defaultValue = <span class="hljs-number">0</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">return</span> toInt(json[key]);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">asDouble</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key,
+    {<span class="hljs-keyword">double</span> defaultValue = <span class="hljs-number">0.0</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">return</span> toDouble(json[key]);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">asBool</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key,
+    {<span class="hljs-keyword">bool</span> defaultValue = <span class="hljs-literal">false</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">return</span> toBool(json[key]);
+}
+
+<span class="hljs-function">String <span class="hljs-title">asString</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key,
+    {String defaultValue = <span class="hljs-string">""</span>}</span>) </span>{
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) <span class="hljs-keyword">return</span> defaultValue;
+  <span class="hljs-keyword">return</span> toString(json[key]);
+}
+
+<span class="hljs-function">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt; <span class="hljs-title">asMap</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key,
+    {Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? defaultValue}</span>) </span>{
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) {
+    <span class="hljs-keyword">return</span> defaultValue ?? &lt;String, <span class="hljs-keyword">dynamic</span>&gt;{};
+  }
+  <span class="hljs-keyword">return</span> toMap(json[key]);
+}
+
+<span class="hljs-function">List <span class="hljs-title">asList</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key, {List? defaultValue}</span>) </span>{
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) <span class="hljs-keyword">return</span> defaultValue ?? [];
+  <span class="hljs-keyword">return</span> toList(json[key]);
+}
+
+<span class="hljs-function">List&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">asListInt</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key,
+    {List? defaultValue}</span>) </span>{
+  <span class="hljs-keyword">return</span> asList(json, key, defaultValue: defaultValue)
+      .map((e) =&gt; toInt(e))
+      .toList();
+}
+
+<span class="hljs-function">List&lt;String&gt; <span class="hljs-title">asListString</span>(<span class="hljs-params">Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key,
+    {List? defaultValue}</span>) </span>{
+  <span class="hljs-keyword">return</span> asList(json, key, defaultValue: defaultValue)
+      .map((e) =&gt; toString(e))
+      .toList();
+}
+
+T asT&lt;T&gt;(Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;? json, String key, {T? defaultValue}) {
+  <span class="hljs-keyword">if</span> (json == <span class="hljs-literal">null</span> || !json.containsKey(key)) {
+    <span class="hljs-keyword">if</span> (defaultValue != <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> defaultValue;
+    <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">as</span> T;
+    <span class="hljs-keyword">if</span> (<span class="hljs-number">0.0</span> <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span> <span class="hljs-keyword">as</span> T;
+    <span class="hljs-keyword">if</span> (<span class="hljs-string">''</span> <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">as</span> T;
+    <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span> <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">as</span> T;
+    <span class="hljs-keyword">if</span> ([] <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> [] <span class="hljs-keyword">as</span> T;
+    <span class="hljs-keyword">if</span> (&lt;String, <span class="hljs-keyword">dynamic</span>&gt;{} <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> &lt;String, <span class="hljs-keyword">dynamic</span>&gt;{} <span class="hljs-keyword">as</span> T;
+    <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">as</span> T;
+  }
+  <span class="hljs-keyword">dynamic</span> <span class="hljs-keyword">value</span> = json[key];
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> T) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> <span class="hljs-keyword">is</span> T) {
+    <span class="hljs-keyword">return</span> toInt(<span class="hljs-keyword">value</span>, defaultValue: (defaultValue ?? <span class="hljs-number">0</span>) <span class="hljs-keyword">as</span> <span class="hljs-keyword">int</span>) <span class="hljs-keyword">as</span> T;
+  } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params"><span class="hljs-number">0.0</span> <span class="hljs-keyword">is</span> T</span>) </span>{
+    <span class="hljs-keyword">return</span> toDouble(<span class="hljs-keyword">value</span>, defaultValue: (defaultValue ?? <span class="hljs-number">0.0</span>) <span class="hljs-keyword">as</span> <span class="hljs-keyword">double</span>) <span class="hljs-keyword">as</span> T;
+  } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params"><span class="hljs-string">''</span> <span class="hljs-keyword">is</span> T</span>) </span>{
+    <span class="hljs-keyword">return</span> toString(<span class="hljs-keyword">value</span>, defaultValue: (defaultValue ?? <span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> String) <span class="hljs-keyword">as</span> T;
+  } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params"><span class="hljs-literal">false</span> <span class="hljs-keyword">is</span> T</span>) </span>{
+    <span class="hljs-keyword">return</span> toBool(<span class="hljs-keyword">value</span>, defaultValue: (defaultValue ?? <span class="hljs-literal">false</span>) <span class="hljs-keyword">as</span> <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">as</span> T;
+  } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params">[] <span class="hljs-keyword">is</span> T</span>) </span>{
+    <span class="hljs-keyword">return</span> toList(<span class="hljs-keyword">value</span>, defaultValue: (defaultValue ?? []) <span class="hljs-keyword">as</span> List) <span class="hljs-keyword">as</span> T;
+  } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> (<span class="hljs-params">&lt;String, <span class="hljs-keyword">dynamic</span>&gt;{} <span class="hljs-keyword">is</span> T</span>) </span>{
+    Object defaultV = defaultValue ?? &lt;String, <span class="hljs-keyword">dynamic</span>&gt;{};
+    <span class="hljs-keyword">return</span> toMap(<span class="hljs-keyword">value</span>, defaultValue: defaultV <span class="hljs-keyword">as</span> Map&lt;String, <span class="hljs-keyword">dynamic</span>&gt;) <span class="hljs-keyword">as</span> T;
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> <span class="hljs-keyword">as</span> T;
+}
+</code></pre>
+<h2 id="features">Features</h2>
+<ul>
+    <li><code style="background-color:#f6f6f6;padding:2px">final</code> property</li>
+    <li>null safety</li>
+    <li><code style="background-color:#f6f6f6;padding:2px">fromJson</code> and <code>toJson</code> method</li>
+    <li><code style="background-color:#f6f6f6;padding:2px">copyWith</code> method</li>
+    <li>use <code style="background-color:#f6f6f6;padding:2px">generic</code></li>
+</ul>
+<h2 id="example">Example</h2>
+<h3 id="example-1-without-using-generic">Example 1: without using generic</h3>
+<pre style="background-color:#f6f6f6;padding:16px"><code class="lang-dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Response</span> </span>{
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">int</span> intValue;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">double</span> doubleValue;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">bool</span> boolValue;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> stringValue;
+  <span class="hljs-keyword">final</span> KeyData keyData;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">String</span>&gt; stringData;
+
+  Response({
+    <span class="hljs-keyword">this</span>.intValue = <span class="hljs-number">0</span>,
+    <span class="hljs-keyword">this</span>.doubleValue = <span class="hljs-number">0.0</span>,
+    <span class="hljs-keyword">this</span>.boolValue = <span class="hljs-keyword">false</span>,
+    <span class="hljs-keyword">this</span>.stringValue = <span class="hljs-string">""</span>,
+    required <span class="hljs-keyword">this</span>.keyData,
+    required <span class="hljs-keyword">this</span>.stringData,
+  });
+
+  <span class="hljs-keyword">factory</span> Response.fromJson(<span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-keyword">dynamic</span>&gt;? json) =&gt; Response(
+    intValue: asInt(json, <span class="hljs-string">'int_value'</span>),
+    doubleValue: asDouble(json, <span class="hljs-string">'double_value'</span>),
+    boolValue: asBool(json, <span class="hljs-string">'bool_value'</span>),
+    stringValue: asString(json, <span class="hljs-string">'string_value'</span>),
+    keyData: KeyData.fromJson(asMap(json, <span class="hljs-string">'key_data'</span>)),
+    stringData: asList(json, <span class="hljs-string">'string_data'</span>).map((e) =&gt; e.toString()).toList(),
+  );
+
+  <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-keyword">dynamic</span>&gt; toJson() =&gt; {
+    <span class="hljs-string">'int_value'</span>: intValue,
+    <span class="hljs-string">'double_value'</span>: doubleValue,
+    <span class="hljs-string">'bool_value'</span>: boolValue,
+    <span class="hljs-string">'string_value'</span>: stringValue,
+    <span class="hljs-string">'key_data'</span>: keyData.toJson(),
+    <span class="hljs-string">'string_data'</span>: stringData.map((e) =&gt; e).toList(),
+  };
+}
+</code></pre>
+<h3 id="example-2-using-generic">Example 2: using generic</h3>
+<pre style="background-color:#f6f6f6;padding:16px"><code class="lang-dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Response</span> </span>{
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">int</span> intValue;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">double</span> doubleValue;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">bool</span> boolValue;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">String</span> stringValue;
+  <span class="hljs-keyword">final</span> KeyData keyData;
+  <span class="hljs-keyword">final</span> <span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">String</span>&gt; stringData;
+
+  Response({
+    <span class="hljs-keyword">this</span>.intValue = <span class="hljs-number">0</span>,
+    <span class="hljs-keyword">this</span>.doubleValue = <span class="hljs-number">0.0</span>,
+    <span class="hljs-keyword">this</span>.boolValue = <span class="hljs-keyword">false</span>,
+    <span class="hljs-keyword">this</span>.stringValue = <span class="hljs-string">""</span>,
+    required <span class="hljs-keyword">this</span>.keyData,
+    required <span class="hljs-keyword">this</span>.stringData,
+  });
+
+  <span class="hljs-keyword">factory</span> Response.fromJson(<span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-keyword">dynamic</span>&gt;? json) =&gt; Response(
+    intValue: asT&lt;<span class="hljs-built_in">int</span>&gt;(json, <span class="hljs-string">'int_value'</span>),
+    doubleValue: asT&lt;<span class="hljs-built_in">double</span>&gt;(json, <span class="hljs-string">'double_value'</span>),
+    boolValue: asT&lt;<span class="hljs-built_in">bool</span>&gt;(json, <span class="hljs-string">'bool_value'</span>),
+    stringValue: asT&lt;<span class="hljs-built_in">String</span>&gt;(json, <span class="hljs-string">'string_value'</span>),
+    keyData: KeyData.fromJson(asT&lt;<span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-keyword">dynamic</span>&gt;&gt;(json, <span class="hljs-string">'key_data'</span>)),
+    stringData: asT&lt;<span class="hljs-built_in">List</span>&gt;(json, <span class="hljs-string">'string_data'</span>).map((e) =&gt; e.toString()).toList(),
+  );
+
+  <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-keyword">dynamic</span>&gt; toJson() =&gt; {
+    <span class="hljs-string">'int_value'</span>: intValue,
+    <span class="hljs-string">'double_value'</span>: doubleValue,
+    <span class="hljs-string">'bool_value'</span>: boolValue,
+    <span class="hljs-string">'string_value'</span>: stringValue,
+    <span class="hljs-string">'key_data'</span>: keyData.toJson(),
+    <span class="hljs-string">'string_data'</span>: stringData.map((e) =&gt; e).toList(),
+  };
+}
+</code></pre>
+<h3 id="example-3-generate-copywith-method">Example 3: generate copyWith method</h3>
+<pre style="background-color:#f6f6f6;padding:16px"><code class="lang-dart"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Response</span> </span>{
+
+  ......
+
+  Response copyWith({
+    int? intValue,
+    double? doubleValue,
+    bool? boolValue,
+    String? stringValue,
+    KeyData? keyData,
+    List&lt;String&gt;? stringData,
+  }) {
+    <span class="hljs-keyword">return</span> Response(
+      intValue: intValue ?? <span class="hljs-keyword">this</span>.intValue,
+      doubleValue: doubleValue ?? <span class="hljs-keyword">this</span>.doubleValue,
+      boolValue: boolValue ?? <span class="hljs-keyword">this</span>.boolValue,
+      stringValue: stringValue ?? <span class="hljs-keyword">this</span>.stringValue,
+      keyData: keyData ?? <span class="hljs-keyword">this</span>.keyData,
+      stringData: stringData ?? <span class="hljs-keyword">this</span>.stringData,
+    );
+  }
+}
+</code></pre>
+<h2 id="operation-demo">Operation demo</h2>
+<p><img src="https://raw.githubusercontent.com/windows7lake/json2dart/master/gif/example.gif" alt=""></p>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
