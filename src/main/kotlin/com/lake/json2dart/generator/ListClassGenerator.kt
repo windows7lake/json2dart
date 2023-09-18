@@ -83,7 +83,13 @@ class ListClassGenerator(private val className: String, jsonArrayString: String)
             } else if (value is JsonPrimitive && value.isNumber && fatJsonObject.has(key) && fatJsonObject[key].isJsonPrimitive) {
                 // update the number value only when the previous one is not a double value
                 // otherwise a Double property could be rewritten to an Int value, then generate wrong property type
-                val oldNum: Number = fatJsonObject[key].asJsonPrimitive.asNumber
+                val oldNum: Number
+                try {
+                    oldNum = fatJsonObject[key].asJsonPrimitive.asNumber
+                } catch (e: ClassCastException) {
+                    MessageTip.show("Data type conversion error, the same key specifies different data types.")
+                    return@forEach
+                }
                 if (oldNum.toString().contains('.').not()) {
                     fatJsonObject.add(key, value)
                 }

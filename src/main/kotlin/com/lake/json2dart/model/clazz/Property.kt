@@ -1,5 +1,6 @@
 package com.lake.json2dart.model.clazz
 
+import com.lake.json2dart.config.ConfigManager
 import com.lake.json2dart.extension.toCamelCaseWithoutFirstCharacter
 import com.lake.json2dart.model.dart.DartClass
 import com.lake.json2dart.treetable.CellProvider
@@ -18,7 +19,9 @@ data class Property(
 
     fun propertyCode(): String {
         return buildString {
-            append(type).append(" ").append(name).append(";")
+            append(type)
+            append(if (!ConfigManager.enableNullSafety && !isPrimitiveType()) "?" else "")
+            append(" ").append(name).append(";")
         }
     }
 
@@ -27,6 +30,21 @@ data class Property(
             append("this.").append(name)
             if (value != "") append(" = ").append(value)
             append(",")
+        }
+    }
+
+    fun copyWithCode(): String {
+        return buildString {
+            append(type)
+            append("? ").append(name).append(",")
+        }
+    }
+
+    fun copyWithConstructorCode(): String {
+        return buildString {
+            append(name).append(": ")
+            append(name).append(" ?? this.")
+            append(name).append(",")
         }
     }
 
@@ -69,5 +87,12 @@ data class Property(
 
     override fun changeState(selected: Boolean) {
         this.selected = selected
+    }
+
+    private fun isPrimitiveType(): Boolean {
+        return typeObject == DartClass.INT ||
+                typeObject == DartClass.DOUBLE ||
+                typeObject == DartClass.STRING ||
+                typeObject == DartClass.BOOLEAN
     }
 }

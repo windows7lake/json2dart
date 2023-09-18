@@ -1,3 +1,12 @@
+import org.junit.Test
+
+class TestData {
+
+    @Test
+    fun dataSafeConvert() {
+
+    }
+}
 
 object TestDataConstant {
 

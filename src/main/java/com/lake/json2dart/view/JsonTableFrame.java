@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.lake.json2dart.model.data.ConvertDataKt.SafeCode;
-import static com.lake.json2dart.model.data.ConvertDataKt.SafeCodeGeneric;
 
 public class JsonTableFrame extends JFrame {
     private JPanel contentPane;
@@ -115,15 +114,7 @@ public class JsonTableFrame extends JFrame {
             }
             new ClassFileGenerator(destinyFile, fileName + ".dart", code).generate();
             if (ConfigManager.INSTANCE.getGenerateSafeConvertFile()) {
-                String safeConvert = ConfigManager.INSTANCE.getUseGeneric() ? SafeCodeGeneric : SafeCode;
-                if (!ConfigManager.INSTANCE.getEnableNullSafety()) {
-                    safeConvert = safeConvert.replaceAll("Map<String, dynamic>\\?", "Map<String, dynamic>")
-                            .replaceAll("T\\?", "T")
-                            .replaceAll("defaultValue!", "defaultValue")
-                            .replaceAll("!json", "json")
-                            .replaceAll("List\\?", "List");
-                }
-                new ClassFileGenerator(destinyFile,  "safe_convert.dart", safeConvert).generate();
+                new ClassFileGenerator(destinyFile,  "safe_convert.dart", SafeCode).generate();
             }
         } catch (IOException e) {
             MessageTip.INSTANCE.show("Generate dart file failed! \n stackTrack" + e);

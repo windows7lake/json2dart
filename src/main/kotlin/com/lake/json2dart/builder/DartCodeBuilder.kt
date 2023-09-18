@@ -59,6 +59,7 @@ data class DartCodeBuilder(
             generateClassConstructor(this)
             generateFromJson(this)
             generateToJson(this)
+            generateCopyWith(this)
             generateClassNested(this)
         }
     }
@@ -189,15 +190,41 @@ data class DartCodeBuilder(
         properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
             val originName = "'${property.originName}': ".addIndent(2)
             sb.append("\n").append(originName).append(property.name)
-            if (property.typeObject is DataClass) sb.append(".toJson()")
+            if (property.typeObject is DataClass) {
+                if (!ConfigManager.enableNullSafety) sb.append("?")
+                sb.append(".toJson()")
+            }
             if (property.typeObject is ListClass) {
                 val typeObject = (property.typeObject as ListClass).generic
                 val element = if (typeObject is DataClass) "e.toJson()" else "e"
+                if (!ConfigManager.enableNullSafety) sb.append("?")
                 sb.append(".map((e) => $element).toList()")
             }
             sb.append(",")
         }
         sb.append("\n").append(footer).append("\n")
+    }
+
+    private fun generateCopyWith(sb: StringBuilder) {
+        sb.append("\n")
+        sb.append(nameCamelCase.addIndent()).append(" copyWith({")
+        sb.append("\n")
+        properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
+            val addIndentCode = property.copyWithCode()
+            sb.append(addIndentCode.addIndent(2)).append("\n")
+        }
+        sb.append("}) {".addIndent())
+        sb.append("\n")
+        sb.append("return ".addIndent(2)).append(nameCamelCase.addSymbol("("))
+        sb.append("\n")
+        properties.filterNot { excludedProperties.contains(it.name) }.forEach { property ->
+            val addIndentCode = property.copyWithConstructorCode()
+            sb.append(addIndentCode.addIndent(3)).append("\n")
+        }
+        sb.append(");".addIndent(2))
+        sb.append("\n")
+        sb.append("}".addIndent())
+        sb.append("\n")
     }
 
     private fun generateClassNested(sb: StringBuilder) {
