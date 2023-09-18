@@ -16,6 +16,7 @@ object ProjectConfig {
     var generateSafeConvertFile = true
     var enableNullSafety = true
     var useGeneric = false
+    var needCopyWithMethod = false
     var indent: Int = 2
     var propertyTypeStrategy = PropertyTypeStrategy.NotNullable
     var defaultValueStrategy = DefaultValueStrategy.AvoidNull

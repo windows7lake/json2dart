@@ -76,4 +76,11 @@ object ConfigManager {
         set(value) {
             ProjectConfig.useGeneric = value
         }
+
+    var needCopyWithMethod: Boolean
+        get() = ProjectConfig.needCopyWithMethod
+        set(value) {
+            ProjectConfig.needCopyWithMethod = value
+        }
+
 }

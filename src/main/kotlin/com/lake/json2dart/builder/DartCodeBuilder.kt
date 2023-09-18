@@ -206,6 +206,7 @@ data class DartCodeBuilder(
     }
 
     private fun generateCopyWith(sb: StringBuilder) {
+        if (!ConfigManager.needCopyWithMethod) return
         sb.append("\n")
         sb.append(nameCamelCase.addIndent()).append(" copyWith({")
         sb.append("\n")

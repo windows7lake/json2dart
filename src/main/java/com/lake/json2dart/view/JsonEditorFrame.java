@@ -27,6 +27,7 @@ public class JsonEditorFrame extends JFrame {
     private JCheckBox checkBoxGenerate;
     private JCheckBox checkBoxNullSafety;
     private JCheckBox checkBoxGeneric;
+    private JCheckBox needCopyWithMethodCheckBox;
     private JButton buttonOK;
     private JButton buttonClose;
     private JButton buttonFormat;
@@ -85,6 +86,7 @@ public class JsonEditorFrame extends JFrame {
             ConfigManager.INSTANCE.setGenerateSafeConvertFile(checkBoxGenerate.isSelected());
             ConfigManager.INSTANCE.setEnableNullSafety(checkBoxNullSafety.isSelected());
             ConfigManager.INSTANCE.setUseGeneric(checkBoxGeneric.isSelected());
+            ConfigManager.INSTANCE.setNeedCopyWithMethod(needCopyWithMethodCheckBox.isSelected());
 
             String fileName = textFileName.getText();
             String className = textClassName.getText();
