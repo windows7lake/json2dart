@@ -17,8 +17,8 @@ class CamelCaseSupportInterceptor : IDartClassInterceptor<DartClass> {
                             if (this.isEmpty()) {
                                 append(s)
                             } else {
-                                append(s.substring(0, 1).uppercase())
-                                append(s.substring(1).lowercase())
+                                append(s.substring(0, 1).toUpperCase())
+                                append(s.substring(1).toLowerCase())
                             }
                         }
                         if (this.toString() == "Map" || this.toString() == "map" ||

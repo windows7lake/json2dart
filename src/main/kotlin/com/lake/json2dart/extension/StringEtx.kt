@@ -7,18 +7,18 @@ fun String.toCamelCase(): String {
         if (list.size == 1) {
             val item = list[0]
             if (item.length > 1) {
-                append(item.substring(0, 1).uppercase())
+                append(item.substring(0, 1).toUpperCase())
                 append(item.substring(1))
             } else {
-                append(item.uppercase())
+                append(item.toUpperCase())
             }
         } else {
             for (item in list) {
                 if (item.length < 2) {
-                    append(item.uppercase())
+                    append(item.toUpperCase())
                 } else {
-                    append(item.substring(0, 1).uppercase())
-                    append(item.substring(1).lowercase())
+                    append(item.substring(0, 1).toUpperCase())
+                    append(item.substring(1).toLowerCase())
                 }
             }
         }
@@ -29,7 +29,7 @@ fun String.toCamelCase(): String {
 fun String.firstCharacterUpperCase(): String {
     val value = this
     return StringBuilder().run {
-        append(value.substring(0, 1).uppercase())
+        append(value.substring(0, 1).toUpperCase())
         append(value.substring(1))
         toString()
     }
@@ -43,8 +43,8 @@ fun String.toCamelCaseWithoutFirstCharacter(): String {
             if (this.isEmpty()) {
                 append(item)
             } else {
-                append(item.substring(0, 1).uppercase())
-                append(item.substring(1).lowercase())
+                append(item.substring(0, 1).toUpperCase())
+                append(item.substring(1).toLowerCase())
             }
         }
         toString()

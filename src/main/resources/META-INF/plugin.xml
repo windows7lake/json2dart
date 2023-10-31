@@ -49,8 +49,8 @@
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">int</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> == <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : <span class="hljs-literal">true</span>;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">double</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span> == <span class="hljs-number">0</span> ? <span class="hljs-literal">false</span> : <span class="hljs-literal">true</span>;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> String) {
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-string">"1"</span> || <span class="hljs-keyword">value</span>.toLowerCase() == <span class="hljs-string">"true"</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-string">"0"</span> || <span class="hljs-keyword">value</span>.toLowerCase() == <span class="hljs-string">"false"</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-string">"1"</span> || <span class="hljs-keyword">value</span>.totoLowerCase() == <span class="hljs-string">"true"</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> == <span class="hljs-string">"0"</span> || <span class="hljs-keyword">value</span>.totoLowerCase() == <span class="hljs-string">"false"</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
   }
   <span class="hljs-keyword">return</span> defaultValue;
 }

@@ -1,11 +1,11 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij") version "1.15.0"
+    id("org.jetbrains.kotlin.jvm") version "1.8.10"
+    id("org.jetbrains.intellij") version "1.13.2"
 }
 
 group = "com.lake.json2dart"
-version = "1.2.0"
+version = "1.2.1"
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ dependencies {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2023.2.1.7")
+    version.set("2022.2.1.18")
     type.set("AI") // Target IDE Platform
 
     plugins.set(listOf(/* Plugin Dependencies */))
@@ -45,10 +45,13 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("183")
-        changeNotes = """
+        sinceBuild.set("222")
+        untilBuild.set("233.*")
+        changeNotes.set(
+            """
             feature: add support for copyWith method.
         """.trimIndent()
+        )
     }
 
     signPlugin {

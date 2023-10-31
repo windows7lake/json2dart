@@ -41,8 +41,8 @@ bool toBool(value, {bool defaultValue = false}) {
   if (value is int) return value == 0 ? false : true;
   if (value is double) return value == 0 ? false : true;
   if (value is String) {
-    if (value == "1" || value.toLowerCase() == "true") return true;
-    if (value == "0" || value.toLowerCase() == "false") return false;
+    if (value == "1" || value.totoLowerCase() == "true") return true;
+    if (value == "0" || value.totoLowerCase() == "false") return false;
   }
   return defaultValue;
 }

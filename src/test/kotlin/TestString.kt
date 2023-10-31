@@ -10,18 +10,18 @@ class TestString {
             if (list.size == 1) {
                 val item = list[0]
                 if (item.length > 1) {
-                    append(item.substring(0, 1).uppercase())
+                    append(item.substring(0, 1).toUpperCase())
                     append(item.substring(1))
                 } else {
-                    append(item.uppercase())
+                    append(item.toUpperCase())
                 }
             } else {
                 for (item in list) {
                     if (item.length < 2) {
-                        append(item.uppercase())
+                        append(item.toUpperCase())
                     } else {
-                        append(item.substring(0, 1).uppercase())
-                        append(item.substring(1).lowercase())
+                        append(item.substring(0, 1).toUpperCase())
+                        append(item.substring(1).toLowerCase())
                     }
                 }
             }
