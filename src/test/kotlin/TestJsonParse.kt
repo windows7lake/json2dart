@@ -70,8 +70,7 @@ class TestJsonParse {
     fun test() {
         try {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val jsonParser = JsonParser()
-            val jsonElement: JsonElement = jsonParser.parse(rawJson)
+            val jsonElement: JsonElement = JsonParser.parseString(rawJson)
             val jsonStr = gson.toJson(jsonElement)
             println(jsonStr)
             val dartClass = DartClassMaker("Test", jsonStr).makeDartClass()

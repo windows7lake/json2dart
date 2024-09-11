@@ -3,7 +3,7 @@ package com.lake.json2dart.extension
 import com.google.gson.*
 
 /**
- * This class aim at filtering out the expected Json Element to be convert from Json array
+ * This class aim at filtering out the expected Json Element to be converted from Json array
  *
  */
 class TargetJsonElement : ITargetJsonElement {
@@ -96,10 +96,10 @@ class TargetJsonElement : ITargetJsonElement {
         private val gson = GsonBuilder().serializeNulls().create()
 
         /**
-         * get an element from the element array , And the result element should contains all the json field in every
+         * get an element from the element array , And the result element should contain all the json field in every
          * element of the array
          *
-         * the input argument jsonArray should only contains jsonObject or only contains one element Recursive like [[["element"]]]
+         * the input argument jsonArray should only contain jsonObject or only contains one element Recursive like [[["element"]]]
          */
         fun getFullFieldElementFromArrayElement(jsonArray: JsonArray): JsonElement {
 

@@ -14,8 +14,8 @@ repositories {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
-    implementation("com.google.code.gson:gson:2.8.9")
-    implementation("com.fifesoft:rsyntaxtextarea:3.1.3")
+    implementation("com.google.code.gson:gson:2.11.0")
+    implementation("com.fifesoft:rsyntaxtextarea:3.5.1")
     implementation("com.kenai.nbpwr:org-jdesktop-swingx:1.6-201002261215")
 }
 
@@ -34,9 +34,9 @@ tasks {
         sourceCompatibility = "17"
         targetCompatibility = "17"
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
-    }
+//    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//        kotlinOptions.jvmTarget = "17"
+//    }
     withType<Test> {
         useJUnitPlatform()
         testLogging {

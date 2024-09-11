@@ -48,7 +48,7 @@ public class JsonEditorFrame extends JFrame {
                     "/org/fife/ui/rsyntaxtextarea/themes/monokai.xml"));
             theme.apply(editText);
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            Log.INSTANCE.e(ioe);
         }
         buttonOK.addActionListener(new ActionListener() {
             @Override
@@ -72,7 +72,7 @@ public class JsonEditorFrame extends JFrame {
         String jsonStr = editText.getText();
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonElement jsonElement = new JsonParser().parse(jsonStr);
+            JsonElement jsonElement = JsonParser.parseString(jsonStr);
             editText.setText(gson.toJson(jsonElement));
 
             if (jsonStr.isEmpty()) {
@@ -122,7 +122,7 @@ public class JsonEditorFrame extends JFrame {
         try {
             String jsonStr = editText.getText();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonElement jsonElement = new JsonParser().parse(jsonStr);
+            JsonElement jsonElement = JsonParser.parseString(jsonStr);
             editText.setText(gson.toJson(jsonElement));
         } catch (JsonSyntaxException e) {
             MessageTip.INSTANCE.show("Json Syntax Error");

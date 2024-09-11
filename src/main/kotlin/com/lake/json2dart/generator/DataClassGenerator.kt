@@ -79,8 +79,8 @@ class DataClassGenerator(private val className: String, private val jsonObject: 
 
     /**
      * Consume the properties whose name end with [BACKSTAGE_NULLABLE_POSTFIX],
-     * After call this method, all properties's name end with [BACKSTAGE_NULLABLE_POSTFIX] will be removed
-     * And the corresponding properies whose name without 【BACKSTAGE_NULLABLE_POSTFIX】it's value will be set
+     * After call this method, all property's name end with [BACKSTAGE_NULLABLE_POSTFIX] will be removed
+     * And the corresponding properties whose name without 【BACKSTAGE_NULLABLE_POSTFIX】it's value will be set
      * to null,for example:
      * remove property -> name = demoProperty__&^#
      * set null value  -> demoProperty.value = null
